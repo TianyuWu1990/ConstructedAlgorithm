@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
+
 
     public static void main(String[] args) {
 //        LRUCache cache = new LRUCache( 2 /* capacity */ );
@@ -24,6 +22,22 @@ public class Main {
 //        System.out.println(l1);
 //        l.add(l1);
 //        System.out.println(l);
+//        Stack_ArrayList st = new Stack_ArrayList();
+//        st.push(1);
+//        System.out.println(st.top());
+//        Stack_twoQueue st = new Stack_twoQueue();
+//        st.push(1);
+//        st.push(2);
+//        st.push(3);
+//        System.out.println(st.top());
+//        System.out.println(st.top());
+//        Queue_LinkedList q = new Queue_LinkedList();
+        Queue_LinkedList q = new Queue_LinkedList();
+        q.enqueue(1);
+        q.enqueue(2);
+        q.enqueue(3);
+        QueueNode node = q.dummy.next;
+        System.out.println(node.printForward());
 
     }
 }
