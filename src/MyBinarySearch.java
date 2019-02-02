@@ -1,32 +1,10 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
-class MyLib {
-
-    public List<Integer> findKClosestElements(List<Integer> arr, int k, int x) {
-        int n = arr.size();
-        if (x <= arr.get(0)) {
-            return arr.subList(0, k);
-        } else if (arr.get(n - 1) <= x) {
-            return arr.subList(n - k, n);
-        } else {
-            int index = Collections.binarySearch(arr, x);
-            if (index < 0)
-                index = -index - 1;
-            int low = Math.max(0, index - k - 1), high = Math.min(arr.size() - 1, index + k - 1);
-
-            while (high - low > k - 1) {
-                if (low < 0 || (x - arr.get(low)) <= (arr.get(high) - x))
-                    high--;
-                else if (high > arr.size() - 1 || (x - arr.get(low)) > (arr.get(high) - x))
-                    low++;
-                else
-                    System.out.println("unhandled case: " + low + " " + high);
-            }
-            return arr.subList(low, high + 1);
-        }
-    }
-
+class MyBinarySearch {
     public int binarySearch(int[] nums, int target) {
         int low = 0, hi = nums.length - 1;
         while (low <= hi) {
@@ -117,6 +95,31 @@ class MyLib {
             return right;
         return -1;
     }
+
+    public List<Integer> findClosestElements(int[] ar, int k, int x) {
+        List<Integer> arr = Arrays.stream(ar).boxed().collect(Collectors.toList());
+        int n = arr.size();
+        if (x <= arr.get(0)) {
+            return arr.subList(0, k);
+        } else if (arr.get(n - 1) <= x) {
+            return arr.subList(n - k, n);
+        } else {
+            int index = Collections.binarySearch(arr, x);
+            //index of the search key, if it is contained in the array; otherwise, (-(insertion point) - 1). The insertion point is defined as the point at which the key would be inserted into the array: the index of the first element greater than the key, or a.length if all elements in the array are less than the specified key. Note that this guarantees that the return value will be >= 0 if and only if the key is found.
+            if (index < 0)
+                index = -index - 1;
+            int low = Math.max(0, index - k - 1), high = Math.min(arr.size() - 1, index + k - 1);
+
+            while (high - low > k - 1) {
+                if ((x - arr.get(low)) <= (arr.get(high) - x))
+                    high--;
+                else if ((x - arr.get(low)) > (arr.get(high) - x))
+                    low++;
+            }
+            return arr.subList(low, high + 1);
+        }
+    }
+
 
 
 }
