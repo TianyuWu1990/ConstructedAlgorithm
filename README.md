@@ -1,3 +1,3 @@
 # ConstructedAlgorithm
 
-## Algorithm Code included for personal use.
+## Algorithm Code lib included for personal use.
