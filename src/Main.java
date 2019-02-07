@@ -39,47 +39,63 @@ public class Main {
 //        QueueNode node = q.dummy.next;
 //        System.out.println(node.printForward());
 
-        String s = "class\u200B \u200BDictImpl\u200B \u200Bimplements\u200B \u200BDictionary\u200B { \n" +
-                "  \u200Bprivate\u200B \u200Bint\u200B[]\u200B array; \n" +
-                " \n" +
-                "  \u200Bpublic\u200B \u200BDictImpl\u200B(\u200Bint\u200B[]\u200B array\u200B)\u200B { \n" +
-                "    \u200Bthis\u200B.\u200Barray \u200B=\u200B array; \n" +
-                "  } \n" +
-                " \n" +
-                "  \u200B// If the index is out of bound, null will be returned. \n" +
-                "  \u200B@Override \n" +
-                "  \u200Bpublic\u200B \u200BInteger\u200B \u200Bget\u200B(\u200Bint\u200B index\u200B)\u200B { \n" +
-                "    \u200Bif\u200B \u200B(\u200Barray \u200B==\u200B \u200Bnull\u200B \u200B||\u200B index \u200B>=\u200B array\u200B.\u200Blength\u200B)\u200B { \n" +
-                "      \u200Breturn\u200B \u200Bnull; \n" +
-                "    } \n" +
-                "    \u200Breturn\u200B array\u200B[\u200Bindex\u200B]; \n" +
-                "  } \n" +
-                " \n" +
-                "  \u200B// For pretty printout. \n" +
-                "  \u200B@Override \n" +
-                "  \u200Bpublic\u200B \u200BString\u200B toString\u200B()\u200B { \n" +
-                "    \u200Bif\u200B \u200B(\u200Barray \u200B==\u200B \u200Bnull\u200B)\u200B { \n" +
-                "      \u200Breturn\u200B \u200BString\u200B.\u200BvalueOf\u200B(\u200Bnull\u200B); \n" +
-                "    } \n" +
-                "    \u200Bif\u200B \u200B(\u200Barray\u200B.\u200Blength \u200B<=\u200B \u200B10\u200B)\u200B { \n" +
-                "      \u200Breturn\u200B \u200BArrays\u200B.\u200BtoString\u200B(\u200Barray\u200B); \n" +
-                "    } \n" +
-                "    \u200B// Truncate output if array is too large. \n" +
-                "    \u200BStringBuilder\u200B sb \u200B=\u200B \u200Bnew\u200B \u200BStringBuilder\u200B(\u200B\"[\"\u200B); \n" +
-                "    \u200Bfor\u200B \u200B(\u200Bint\u200B i \u200B=\u200B \u200B0\u200B;\u200B i \u200B<\u200B \u200B5\u200B;\u200B i\u200B++)\u200B { \n" +
-                "      sb\u200B.\u200Bappend\u200B(\u200Barray\u200B[\u200Bi\u200B]).\u200Bappend\u200B(\u200B\", \"\u200B); \n" +
-                "    } \n" +
-                "    sb\u200B.\u200Bappend\u200B(\u200B\"......, \"\u200B); \n" +
-                "    \u200Bfor\u200B \u200B(\u200Bint\u200B i \u200B=\u200B array\u200B.\u200Blength \u200B-\u200B \u200B4\u200B;\u200B i \u200B<\u200B array\u200B.\u200Blength\u200B;\u200B i\u200B++)\u200B { \n" +
-                "      sb\u200B.\u200Bappend\u200B(\u200Barray\u200B[\u200Bi\u200B]); \n" +
-                "      \u200Bif\u200B \u200B(\u200Bi \u200B!=\u200B array\u200B.\u200Blength \u200B-\u200B \u200B1\u200B)\u200B { \n" +
-                "        sb\u200B.\u200Bappend\u200B(\u200B\", \"\u200B); \n" +
-                "      } \n" +
-                "    } \n" +
-                "    sb\u200B.\u200Bappend\u200B(\u200B\"]\"\u200B); \n" +
-                "    \u200Breturn\u200B sb\u200B.\u200BtoString\u200B(); \n" +
-                "  } \n" +
-                "}";
+        String s = "// Method 1: recursion, this method will timeout on laicode.com public long fibonacci(int K) { if (K <= 0) { return 0; } if (K == 1) { return 1; } return fibonacci(K ‑ 1) + fibonacci(K ‑ 2);\n" +
+                "\n" +
+                "}\n" +
+                "\n" +
+                "// Method 2: dp solution with O(n) space. public long fibonacciI(int K) {\n" +
+                "\n" +
+                "if (K <= 0) { return 0; } long[] array = new long[K + 1]; array[1] = 1; for (int i = 2; i <= K; i++) {\n" +
+                "\n" +
+                "array[i] = array[i ‑ 2] + array[i ‑ 1]; } return array[K];\n" +
+                "\n" +
+                "}\n" +
+                "\n" +
+                "// Method 3: dp solution with O(1) space. public long fibonacciII(int K) {\n" +
+                "\n" +
+                "long a = 0; long b = 1; if (K <= 0) {\n" +
+                "\n" +
+                "return a; } while (K > 1) {\n" +
+                "\n" +
+                "long temp = a + b;\n" +
+                "\n" +
+                "a = b;\n" +
+                "\n" +
+                "b = temp;\n" +
+                "\n" +
+                "K‑‑; } return b;\n" +
+                "\n" +
+                "ﬁle:///Users/wutianyu/Desktop/2018%20%E5%86%AC%E5%AD%A31%E7%8F%AD%20%E7%B3%BB%E7%BB%9F%E7%8F%ADJava%20Solution%20I%…\n" +
+                "\n" +
+                "13/75 2/7/2019\n" +
+                "\n" +
+                "2018 冬季1班 系统班Java Solution I - Google 文档\n" +
+                "\n" +
+                "}\n" +
+                "\n" +
+                "// Method 4: O(logn) solution using matrix multiplication.\n" +
+                "\n" +
+                "// M = {{1, 1}, {1, 0}} = {{f(2), f(1)}, {f(1), f{0}}} // fibo(K) = (M ^ K)[0][0] public static final long[][] SEED = { { 1L, 1L }, { 1L, 0L } };\n" +
+                "\n" +
+                "public long fibonacciIII(int K) {\n" +
+                "\n" +
+                "if (K <= 0) { return 0; } if (K == 1) {\n" +
+                "\n" +
+                "return 1; } long[][] matrix = { { 1L, 1L }, { 1L, 0L } }; pow(matrix, K ‑ 1); return matrix[0][0];\n" +
+                "\n" +
+                "}\n" +
+                "\n" +
+                "// calculate matrix ^ pow, and use the result to update matrix value. private void pow(long[][] matrix, int pow) {\n" +
+                "\n" +
+                "if (pow == 1) { return; } pow(matrix, pow / 2); multiply(matrix, matrix); if (pow % 2 != 0) {\n" +
+                "\n" +
+                "multiply(matrix, SEED); }\n" +
+                "\n" +
+                "}\n" +
+                "\n" +
+                "// matrix multiplication and the result is updated to matrix itself.\n" +
+                "\n" +
+                "private void multiply(long[][] matrix, long[][] multiplier) { long topLeft = matrix[0][0] * multiplier[0][0] + matrix[0][1] * multiplier[1][0]; long topRight = matrix[0][0] * multiplier[0][1] + matrix[0][1] * multiplier[1][1]; long bottomLeft = matrix[1][0] * multiplier[0][0] + matrix[1][1] * multiplier[1][0]; long bottomRight = matrix[1][0] * multiplier[0][1] + matrix[1][1] * multiplier[1][1]; matrix[0][0] = topLeft; matrix[0][1] = topRight; matrix[1][0] = bottomLeft; matrix[1][1] = bottomRight; } }";
         System.out.println(RemoveUniHiden.replace(s));
     }
 }
