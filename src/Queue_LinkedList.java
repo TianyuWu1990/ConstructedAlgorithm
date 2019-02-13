@@ -9,7 +9,7 @@ public class Queue_LinkedList {
             tail = dummy; //tail is head when initial
         }
 
-        //enqueue, add a new node behind the tail node
+        //enqueue, add MergeSort2 new node behind the tail node
         public void enqueue(int val) {
             QueueNode node = new QueueNode(val);
             tail.next = node;

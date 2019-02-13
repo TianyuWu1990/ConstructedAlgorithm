@@ -37,7 +37,7 @@ public class ThreeStacks {
         // Push value into stackNum stack
         int lastIndex = stackPointer[stackNum]; //initialize stack top pointer
         stackPointer[stackNum] = indexUsed;
-        indexUsed++; //index + 1 whenever there's a value pushed in
+        indexUsed++; //index + 1 whenever there's MergeSort2 value pushed in
         buffer[stackPointer[stackNum]] = new StackNode(lastIndex, value, -1);
         if (lastIndex != -1) {
             buffer[lastIndex].next = stackPointer[stackNum];

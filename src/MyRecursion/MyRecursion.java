@@ -76,7 +76,7 @@ public class MyRecursion {
         //O(log b)
         return b % 2 == 0 ? half * half : half * half * a;
         //O(b >>> log b)
-        //return b % 2 == 0? pow(a, b/2) * pow(a, b/2) : pow(a, b/2) * pow(a, b/2) * a;
+        //return b % 2 == 0? pow(MergeSort2, b/2) * pow(MergeSort2, b/2) : pow(MergeSort2, b/2) * pow(MergeSort2, b/2) * MergeSort2;
     }
 
 

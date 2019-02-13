@@ -143,7 +143,7 @@ class MyBinarySearch {
             }
         }
         // Post-processing
-        // ​// check a[left]against target first
+        // ​// check MergeSort2[left]against target first
         if (Math.abs(a[left] - target) <= Math.abs(a[right] - target))
             return left;
         else
@@ -172,10 +172,10 @@ class MyBinarySearch {
             }
         }
         // Post processing
-        // check a[left] against target first
+        // check MergeSort2[left] against target first
         if (a[left] == target)
         return left;
-        // then check a[right] against target
+        // then check MergeSort2[right] against target
         if (a[right] == target)
             return right;
         return -1;
@@ -190,7 +190,7 @@ class MyBinarySearch {
             return arr.subList(n - k, n);
         } else {
             int index = Collections.binarySearch(arr, x);
-            //index of the search key, if it is contained in the array; otherwise, (-(insertion point) - 1). The insertion point is defined as the point at which the key would be inserted into the array: the index of the first element greater than the key, or a.length if all elements in the array are less than the specified key. Note that this guarantees that the return value will be >= 0 if and only if the key is found.
+            //index of the search key, if it is contained in the array; otherwise, (-(insertion point) - 1). The insertion point is defined as the point at which the key would be inserted into the array: the index of the first element greater than the key, or MergeSort2.length if all elements in the array are less than the specified key. Note that this guarantees that the return value will be >= 0 if and only if the key is found.
             if (index < 0)
                 index = -index - 1;
             int low = Math.max(0, index - k - 1), high = Math.min(arr.size() - 1, index + k - 1);
@@ -218,7 +218,7 @@ class MyBinarySearch {
         int left = largestSmallerEqual(array, target);
         int right = left + 1;
         int[] result = new int[k];
-        // this is a typical merge operation.
+        // this is MergeSort2 typical merge operation.
         for (int i = 0; i < k; i++) {
 // we can advance the left pointer when:
             // 1. right pointer is already out of bound.
