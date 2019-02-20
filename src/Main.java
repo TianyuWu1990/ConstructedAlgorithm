@@ -41,64 +41,14 @@ public class Main {
 //        QueueNode node = q.dummy.next;
 //        System.out.println(node.printForward());
 
-//        String s = "// Method 1: recursion, this method will timeout on laicode.com public long fibonacci(int K) { if (K <= 0) { return 0; } if (K == 1) { return 1; } return fibonacci(K ‑ 1) + fibonacci(K ‑ 2);\n" +
-//                "\n" +
-//                "}\n" +
-//                "\n" +
-//                "// Method 2: dp solution with O(n) space. public long fibonacciI(int K) {\n" +
-//                "\n" +
-//                "if (K <= 0) { return 0; } long[] array = new long[K + 1]; array[1] = 1; for (int i = 2; i <= K; i++) {\n" +
-//                "\n" +
-//                "array[i] = array[i ‑ 2] + array[i ‑ 1]; } return array[K];\n" +
-//                "\n" +
-//                "}\n" +
-//                "\n" +
-//                "// Method 3: dp solution with O(1) space. public long fibonacciII(int K) {\n" +
-//                "\n" +
-//                "long MergeSort2 = 0; long b = 1; if (K <= 0) {\n" +
-//                "\n" +
-//                "return MergeSort2; } while (K > 1) {\n" +
-//                "\n" +
-//                "long temp = MergeSort2 + b;\n" +
-//                "\n" +
-//                "MergeSort2 = b;\n" +
-//                "\n" +
-//                "b = temp;\n" +
-//                "\n" +
-//                "K‑‑; } return b;\n" +
-//                "\n" +
-//                "ﬁle:///Users/wutianyu/Desktop/2018%20%E5%86%AC%E5%AD%A31%E7%8F%AD%20%E7%B3%BB%E7%BB%9F%E7%8F%ADJava%20Solution%20I%…\n" +
-//                "\n" +
-//                "13/75 2/7/2019\n" +
-//                "\n" +
-//                "2018 冬季1班 系统班Java Solution I - Google 文档\n" +
-//                "\n" +
-//                "}\n" +
-//                "\n" +
-//                "// Method 4: O(logn) solution using matrix multiplication.\n" +
-//                "\n" +
-//                "// M = {{1, 1}, {1, 0}} = {{f(2), f(1)}, {f(1), f{0}}} // fibo(K) = (M ^ K)[0][0] public static final long[][] SEED = { { 1L, 1L }, { 1L, 0L } };\n" +
-//                "\n" +
-//                "public long fibonacciIII(int K) {\n" +
-//                "\n" +
-//                "if (K <= 0) { return 0; } if (K == 1) {\n" +
-//                "\n" +
-//                "return 1; } long[][] matrix = { { 1L, 1L }, { 1L, 0L } }; pow(matrix, K ‑ 1); return matrix[0][0];\n" +
-//                "\n" +
-//                "}\n" +
-//                "\n" +
-//                "// calculate matrix ^ pow, and use the result to update matrix value. private void pow(long[][] matrix, int pow) {\n" +
-//                "\n" +
-//                "if (pow == 1) { return; } pow(matrix, pow / 2); multiply(matrix, matrix); if (pow % 2 != 0) {\n" +
-//                "\n" +
-//                "multiply(matrix, SEED); }\n" +
-//                "\n" +
-//                "}\n" +
-//                "\n" +
-//                "// matrix multiplication and the result is updated to matrix itself.\n" +
-//                "\n" +
-//                "private void multiply(long[][] matrix, long[][] multiplier) { long topLeft = matrix[0][0] * multiplier[0][0] + matrix[0][1] * multiplier[1][0]; long topRight = matrix[0][0] * multiplier[0][1] + matrix[0][1] * multiplier[1][1]; long bottomLeft = matrix[1][0] * multiplier[0][0] + matrix[1][1] * multiplier[1][0]; long bottomRight = matrix[1][0] * multiplier[0][1] + matrix[1][1] * multiplier[1][1]; matrix[0][0] = topLeft; matrix[0][1] = topRight; matrix[1][0] = bottomLeft; matrix[1][1] = bottomRight; } }";
-//        System.out.println(RemoveUniHiden.replace(s));
+        String s = "public int[] moveZero(int[] array) { if (array == null || array.length <= 1) { return array; } int left = 0; int right = array.length ‑ 1; while (left <= right) { if (array[left] != 0) { left++; } else if (array[right] == 0) { right‑‑; } else { swap(array, left++, right‑‑); }\n" +
+                "\n" +
+                "} return array;\n" +
+                "\n" +
+                "}\n" +
+                "\n" +
+                "private void swap(int[] array, int a, int b) { int tmp = array[a]; array[a] = array[b]; array[b] = tmp; }";
+        System.out.println(RemoveUniHiden.replace(s));
 
     }
 }
