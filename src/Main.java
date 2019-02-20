@@ -1,3 +1,6 @@
+import CtCILibrary.AssortedMethods;
+import CtCILibrary.ListNode;
+import LinkedList.MyLinkedListMethods;
 import Sorting.MergeSort;
 
 public class Main {
@@ -38,17 +41,39 @@ public class Main {
 //        q.enqueue(1);
 //        q.enqueue(2);
 //        q.enqueue(3);
-//        QueueNode node = q.dummy.next;
-//        System.out.println(node.printForward());
+//        QueueListNode ListNode = q.dummy.next;
+//        System.out.println(ListNode.printForward());
 
-        String s = "public int[] moveZero(int[] array) { if (array == null || array.length <= 1) { return array; } int left = 0; int right = array.length ‑ 1; while (left <= right) { if (array[left] != 0) { left++; } else if (array[right] == 0) { right‑‑; } else { swap(array, left++, right‑‑); }\n" +
-                "\n" +
-                "} return array;\n" +
-                "\n" +
-                "}\n" +
-                "\n" +
-                "private void swap(int[] array, int a, int b) { int tmp = array[a]; array[a] = array[b]; array[b] = tmp; }";
-        System.out.println(RemoveUniHiden.replace(s));
+//        String s = "public int[] moveZero(int[] array) { if (array == null || array.length <= 1) { return array; } int left = 0; int right = array.length ‑ 1; while (left <= right) { if (array[left] != 0) { left++; } else if (array[right] == 0) { right‑‑; } else { swap(array, left++, right‑‑); }\n" +
+//                "\n" +
+//                "} return array;\n" +
+//                "\n" +
+//                "}\n" +
+//                "\n" +
+//                "private void swap(int[] array, int a, int b) { int tmp = array[a]; array[a] = array[b]; array[b] = tmp; }";
+//        System.out.println(RemoveUniHiden.replace(s));
+
+//        ListListNode one = new ListListNode(1);
+//        ListListNode two = new ListListNode(2);
+//        ListListNode thr = new ListListNode(3);
+//        ListListNode fou = new ListListNode(4);
+//        ListListNode fiv = new ListListNode(5);
+//
+//        thr.next = one;
+//        one.next = fou;
+//        fou.next = two;
+//        two.next = fiv;
+//        System.out.println(thr.printForward());
+//        MyLinkedListMethods test = new MyLinkedListMethods();
+//        ListListNode res = test.mergeSort(thr);
+//
+//        System.out.println(res.printForward());
+
+        ListNode h1 = AssortedMethods.createLinkedListFromArray(new int[]{6,5,4,3});
+        ListNode h2 = AssortedMethods.createLinkedListFromArray(new int[]{9,6,3});
+        MyLinkedListMethods mylist = new MyLinkedListMethods();
+        System.out.println(mylist.addTwoNumbers2(h1, h2).printForward());
 
     }
+
 }

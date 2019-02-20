@@ -133,6 +133,139 @@ public class MyLinkedListMethods {
         return small.next;
     }
 
+
+    public ListNode mergeSort (ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode middle = middleNode(head);
+        ListNode nextofmiddle = middle.next;
+        middle.next = null;
+        ListNode left = mergeSort(head);
+        ListNode right = mergeSort(nextofmiddle);
+        return helper(left, right);
+
+    }
+    private ListNode helper (ListNode one, ListNode two) {
+        ListNode res = null;
+        if (one == null) return two;
+        if (two == null) return one;
+        if (one.value <= two.value) {
+            res = one;
+            res.next = helper(one.next, two);
+        } else {
+            res = two;
+            res.next = helper(one, two.next);
+        }
+        return res;
+    }
+
+    /**
+     * Input:
+     First List: 5->6->3  // represents number 365
+     Second List: 8->4->2 //  represents number 248
+     Output
+     Resultant list: 3->1->6  // represents number 613
+     * @param a
+     * @param b
+     * @return
+     */
+    public ListNode addTwoNumbers (ListNode a, ListNode b) {
+        ListNode dummy = null;
+        ListNode pre = null;
+        ListNode temp = null;
+        int carry = 0, sum;
+        while (a != null || b != null) {
+            sum = carry + (a == null ? 0 : a.value) + (b == null ? 0 : b.value);
+            carry = (sum > 9 ? 1 : 0);
+            sum = sum % 10;
+            temp = new ListNode(sum);
+            if (dummy == null) {
+                dummy.next = temp;
+            } else {
+                pre.next = temp;
+            }
+            pre = temp;
+            if (a != null) a = a.next;
+            if (b != null) b = b.next;
+        }
+        if (carry > 0) temp.next = new ListNode(carry);
+        return dummy;
+    }
+
+     /*
+     Input:
+  First List: 5->6->3  // represents number 563
+  Second List: 8->4->2 //  represents number 842
+Output
+  Resultant list: 1->4->0->5  // represents number 1405
+      */
+     ListNode res = null;
+     int carry = 0;
+     ListNode dif_mark = null;
+     public ListNode addTwoNumbers2 (ListNode a, ListNode b) {
+         if (a == null) {
+             res = b;
+         }
+         if (b == null) {
+             res = a;
+         }
+         int sizea = getSize(a);
+         int sizeb = getSize(b);
+         if (sizea == sizeb) {
+             addSameSize(a, b);
+         } else {
+             if (sizea < sizeb) {
+                 ListNode temp = a;
+                 a = b;
+                 b = temp;
+             }
+             int diff = Math.abs(sizea - sizeb);
+             ListNode temp = a;
+             while (diff-- >= 0) {
+                 dif_mark = temp;
+                 temp = temp.next;
+             }
+             addSameSize(dif_mark, b);
+             propogateCarry(a);
+         }
+         if (carry > 0) {
+             ListNode newnode = new ListNode(carry);
+             newnode.next = res;
+             res = newnode;
+         }
+         return res;
+     }
+
+     private void propogateCarry(ListNode head) {
+         if (head != dif_mark) {
+             propogateCarry(head.next);
+             int sum = carry + head.value;
+             carry = sum / 10;
+             sum = sum % 10;
+             ListNode newnode = new ListNode(sum);
+             newnode.next = res;
+             res = newnode;
+         }
+     }
+
+     private void addSameSize(ListNode a, ListNode b) {
+         if (a == null) return;
+         addSameSize(a.next, b.next);
+         int sum = a.value + b.value + carry;
+         carry = sum / 10;
+         sum = sum % 10;
+         ListNode newnode = new ListNode(sum);
+         newnode.next = res;
+         res = newnode;
+     }
+
+     private int getSize(ListNode head) {
+         int size = 0;
+         while (head != null) {
+             size++;
+             head = head.next;
+         }
+         return size;
+     }
 }
 
 
