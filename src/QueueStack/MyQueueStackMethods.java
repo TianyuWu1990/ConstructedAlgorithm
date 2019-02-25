@@ -1,5 +1,6 @@
 package QueueStack;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 public class MyQueueStackMethods {
@@ -42,4 +43,98 @@ public class MyQueueStackMethods {
             s1.offerFirst(s3.pollFirst());
         }
     }
+
+    class QueueByTwoStack {
+        private LinkedList<Integer> in;
+        private LinkedList<Integer> out;
+        public QueueByTwoStack() {
+            in = new LinkedList<>();
+            out = new LinkedList<>();
+        }
+
+        private void move() {
+            if (out.isEmpty()) {
+                while (!in.isEmpty()) {
+                    out.offerFirst(in.pollFirst());
+                }
+            }
+        }
+        public Integer poll(){
+            move();
+            return out.isEmpty() ? null : out.pollFirst();
+        }
+
+        public void offer(int value) {
+            in.offerFirst(value);
+        }
+        public Integer peek() {
+            move();
+            return out.isEmpty() ? null : out.peekFirst();
+        }
+        public int size() {
+            return in.size() + out.size();
+        }
+        public boolean isEmpty() {
+            return in.size() == 0 && out.size() == 0;
+        }
+    }
+
+    class StackByTwoQueue{
+
+    }
+
+    class StackByOneQueue{
+
+    }
+
+    class StackWithMin{
+        private Deque<Integer> stack;
+        private Deque<Integer> minStack;
+
+        public StackWithMin() {
+            stack = new LinkedList<>();
+            minStack = new LinkedList<>();
+        }
+
+        public Integer min() {
+            if (!minStack.isEmpty()) {
+                return minStack.peekFirst();
+            } else {
+                return null;
+            }
+        }
+
+        public void push(int value) {
+            stack.offerFirst(value);
+            if (minStack.isEmpty() || minStack.peekFirst() >= value) {
+                minStack.offerFirst(value);
+            }
+        }
+
+        public Integer pop() {
+            if (stack.isEmpty()) return null;
+            Integer ans = stack.pollFirst();
+            if (minStack.peekFirst().equals(ans)) {
+                minStack.pollFirst();
+            }
+            return ans;
+        }
+
+        public Integer top() {
+            if (stack.isEmpty()) {
+                return null;
+            } else {
+                return stack.peekFirst();
+            }
+        }
+    }
+
+    class StackByDeque{
+
+    }
+
+    class ThreeStackRemove{
+
+    }
+
 }

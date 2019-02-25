@@ -3,10 +3,15 @@ import CtCILibrary.ListNode;
 import LinkedList.MyLinkedListMethods;
 import Sorting.MergeSort;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 //        LRUCache cache = new LRUCache( 2 /* capacity */ );
 //        cache.put(1,1);
 //        cache.put(2,2);
@@ -69,10 +74,22 @@ public class Main {
 //
 //        System.out.println(res.printForward());
 
-        ListNode h1 = AssortedMethods.createLinkedListFromArray(new int[]{6,5,4,3});
-        ListNode h2 = AssortedMethods.createLinkedListFromArray(new int[]{9,6,3});
-        MyLinkedListMethods mylist = new MyLinkedListMethods();
-        System.out.println(mylist.addTwoNumbers2(h1, h2).printForward());
+//        ListNode h1 = AssortedMethods.createLinkedListFromArray(new int[]{6,5,4,3});
+//        ListNode h2 = AssortedMethods.createLinkedListFromArray(new int[]{9,6,3});
+//        MyLinkedListMethods mylist = new MyLinkedListMethods();
+//        System.out.println(mylist.addTwoNumbers2(h1, h2).printForward());
+
+        System.out.println("\\\\");
+        String path = "/Users/wutianyu/Documents/ConstructedAlgorithm/src/test.txt";
+        FileInputStream rd = new FileInputStream(path);
+        int i;
+        try {
+            while((i = rd.read()) != -1) {
+                System.out.print((char)i);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
