@@ -1,10 +1,13 @@
 package QueueStack;
 
+import sun.awt.image.ImageWatched;
+
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class MyQueueStackMethods {
-    public LinkedList SortThreeStacks(LinkedList<Integer> s1) {
+    public LinkedList SortByThreeStacks(LinkedList<Integer> s1) {
         LinkedList<Integer> s2 = new LinkedList<>();
         LinkedList<Integer> s3 = new LinkedList<>();
         sort(s1, s2, s3, s1.size());
@@ -44,6 +47,18 @@ public class MyQueueStackMethods {
         }
     }
 
+    public LinkedList<Integer> SortByTwoStack(LinkedList<Integer> input) {
+        LinkedList<Integer> buffer = new LinkedList<>();
+        while (!input.isEmpty()) {
+            int temp = input.pollFirst();
+            while (!buffer.isEmpty() && buffer.pollFirst() > temp) {
+                input.offerFirst(buffer.pollFirst());
+            }
+            buffer.offerFirst(temp);
+        }
+        return buffer;
+    }
+
     class QueueByTwoStack {
         private LinkedList<Integer> in;
         private LinkedList<Integer> out;
@@ -80,10 +95,56 @@ public class MyQueueStackMethods {
     }
 
     class StackByTwoQueue{
+        private Queue<Integer> q1;
+        private Queue<Integer> q2;
+        public StackByTwoQueue() {
+            q1 = new LinkedList<>();
+            q2 = new LinkedList<>();
+        }
+        public void push(int value) {
+            q2.add(value);
+            while (!q1.isEmpty()) {
+                q2.add(q1.poll());
+            }
+            swapName();
+        }
 
+        public void pop() {
+            if (q1.isEmpty()) return;
+            q1.poll();
+        }
+
+        public Integer top() {
+            return q1.isEmpty() ? null : q1.peek();
+        }
+
+        private void swapName() {
+            Queue<Integer> temp = q1;
+            q1 = q2;
+            q2 = temp;
+        }
     }
 
     class StackByOneQueue{
+        Queue<Integer> q = new LinkedList<>();
+        public void push(int value) {
+            int size = q.size();
+            q.add(value);
+            for (int i = 0; i < size; i++) {
+                int cur = q.poll();
+                q.add(cur);
+            }
+
+        }
+
+        public Integer pop() {
+            return q.isEmpty() ? null : q.poll();
+
+        }
+
+        public Integer top() {
+            return q.isEmpty() ? null : q.peek();
+        }
 
     }
 
@@ -129,7 +190,7 @@ public class MyQueueStackMethods {
         }
     }
 
-    class StackByDeque{
+    class DequeByStack{
 
     }
 

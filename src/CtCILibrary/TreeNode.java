@@ -1,17 +1,17 @@
 package CtCILibrary;
 
-/* One node of a binary tree. The data element stored is a single 
+/* One node of a binary tree. The value element stored is a single 
  * character.
  */
 public class TreeNode {
-    public int data;
+    public int value;
     public TreeNode left;
     public TreeNode right;
     public TreeNode parent;
     private int size = 0;
 
     public TreeNode(int d) {
-        data = d;
+        value = d;
         size = 1;
     }
 
@@ -30,7 +30,7 @@ public class TreeNode {
     }
 
     public void insertInOrder(int d) {
-        if (d <= data) {
+        if (d <= value) {
             if (left == null) {
                 setLeftChild(new TreeNode(d));
             } else {
@@ -52,13 +52,13 @@ public class TreeNode {
 
     public boolean isBST() {
         if (left != null) {
-            if (data < left.data || !left.isBST()) {
+            if (value < left.value || !left.isBST()) {
                 return false;
             }
         }
 
         if (right != null) {
-            if (data >= right.data || !right.isBST()) {
+            if (value >= right.value || !right.isBST()) {
                 return false;
             }
         }
@@ -73,11 +73,11 @@ public class TreeNode {
     }
 
     public TreeNode find(int d) {
-        if (d == data) {
+        if (d == value) {
             return this;
-        } else if (d <= data) {
+        } else if (d <= value) {
             return left != null ? left.find(d) : null;
-        } else if (d > data) {
+        } else if (d > value) {
             return right != null ? right.find(d) : null;
         }
         return null;
