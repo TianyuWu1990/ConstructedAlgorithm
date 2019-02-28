@@ -91,6 +91,9 @@ public class Main {
             e.printStackTrace();
         }
 
+        PlayGround p = new PlayGround();
+        PlayGround.b = 0;
+
     }
 
 }
