@@ -50,8 +50,8 @@ public class MyQueueStackMethods {
     public LinkedList<Integer> SortByTwoStack(LinkedList<Integer> input) {
         LinkedList<Integer> buffer = new LinkedList<>();
         while (!input.isEmpty()) {
-            int temp = input.pollFirst();
-            while (!buffer.isEmpty() && buffer.pollFirst() > temp) {
+            int temp = input.pop();
+            while (!buffer.isEmpty() && buffer.pop() > temp) {
                 input.offerFirst(buffer.pollFirst());
             }
             buffer.offerFirst(temp);

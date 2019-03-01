@@ -1,12 +1,14 @@
 import CtCILibrary.AssortedMethods;
 import CtCILibrary.ListNode;
 import LinkedList.MyLinkedListMethods;
+import QueueStack.MyQueueStackMethods;
 import Sorting.MergeSort;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.*;
 
 public class Main {
 
@@ -79,20 +81,18 @@ public class Main {
 //        MyLinkedListMethods mylist = new MyLinkedListMethods();
 //        System.out.println(mylist.addTwoNumbers2(h1, h2).printForward());
 
-        System.out.println("\\\\");
-        String path = "/Users/wutianyu/Documents/ConstructedAlgorithm/src/test.txt";
-        FileInputStream rd = new FileInputStream(path);
-        int i;
-        try {
-            while((i = rd.read()) != -1) {
-                System.out.print((char)i);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        PlayGround p = new PlayGround();
-        PlayGround.b = 0;
+        MyQueueStackMethods mq = new MyQueueStackMethods();
+        AssortedMethods am = new AssortedMethods();
+        int[] in = {3,5,7,2,1,76,9,5,-1};
+        List<Integer> list = new LinkedList<>();
+        list.add(1);
+        list.add(-1);
+        list.add(10);
+        list.add(-10);
+        list.add(100);
+        System.out.println(mq.SortByThreeStacks(new LinkedList<>(list)));
+        Stack stack = new Stack();
+        Queue q = new LinkedList<>();
 
     }
 
