@@ -1,6 +1,5 @@
 package Tree;
 
-import CtCILibrary.ListNode;
 import CtCILibrary.TreeNode;
 
 import java.util.*;
@@ -137,5 +136,241 @@ public class MyBinaryTreeMethods {
         }
     }
 
+    public TreeNode BTLCA(TreeNode root, TreeNode q, TreeNode p) {
+        Map<TreeNode, TreeNode> map = new HashMap<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.push(p);
+        map.put(p, null);
+        while (!map.containsKey(p) || !map.containsKey(q)) {
+            TreeNode cur = stack.pop();
+            if (cur.left != null) {
+                stack.push(cur.left);
+                map.put(cur.left, cur);
+            }
+            if (cur.right != null) {
+                stack.push(cur.right);
+                map.put(cur.right, cur);
+            }
+        }
+        Set<TreeNode> set = new HashSet<>();
+        while (p != null) {
+            set.add(p);
+            p = map.get(p);
+        }
+        while (!set.contains(q)) {
+            q = map.get(q);
+        }
+        return q;
+    }
 
+    public TreeNode BTLCArecursive(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) return null;
+        if (root == p || root == q) return root;
+        TreeNode ll = BTLCArecursive(root.left, p, q);
+        TreeNode lr = BTLCArecursive(root.right, p, q);
+        if (ll != null && lr != null) return root;
+        return ll == null ? lr : ll;
+    }
+
+    public TreeNode BSTLCA(TreeNode root, TreeNode p, TreeNode q) {
+        if (root.value > p.value && root.value > q.value) {
+            return BSTLCA(root.left, p, q);
+        } else if (root.value < p.value && root.value < q.value) {
+            return BSTLCA(root.right, p, q);
+        } else {
+            return root;
+        }
+    }
+
+    public static class MaxPathSum {
+        public int maxPathSum(TreeNode root) {
+            if (root == null) return 0;
+            return maxPathSum(root, 0);
+        }
+
+        //method1: pass down the prefix sum
+        private int maxPathSum(TreeNode root, int sum) {
+            sum += root.value;
+            if (root.left == null && root.right == null) {
+                return sum;
+            } else if (root.left == null) {
+                return maxPathSum(root.right, sum);
+            } else if (root.right == null) {
+                return maxPathSum(root.left, sum);
+            }
+
+            return Math.max(maxPathSum(root.left, sum), maxPathSum(root.right, sum));
+        }
+
+        //method2: Bottom up return the max suffix sum
+        public int maxPathSumII(TreeNode root) {
+            if (root.left == null && root.right == null) {
+                return root.value;
+            }
+            if (root.left == null) {
+                return root.value + maxPathSumII(root.right);
+            }
+            if (root.right == null) {
+                return root.value + maxPathSumII(root.left);
+            }
+            return root.value + Math.max(maxPathSumII(root.left), maxPathSumII(root.right));
+        }
+
+        /**
+         * node to node that on the path from root to leaf
+         * @return
+         */
+        public int maxPathSumIII(TreeNode root) {
+            if (root == null) return 0;
+            int[] max = new int[]{Integer.MIN_VALUE};
+            helper(root, max);
+            return max[0];
+        }
+
+        private int helper(TreeNode root, int[] max) {
+            if (root == null) {
+                return 0;
+            }
+            int left = helper(root.left, max);
+            int right = helper(root.right, max);
+            int sin = Math.max(0, Math.max(left, right)) + root.value;
+            max[0] = Math.max(sin, max[0]);
+            return sin;
+        }
+
+        /**
+         * node to node anywhere in the tree
+         * @param root
+         * @return
+         */
+        public int maxPathSumIV(TreeNode root) {
+            int[] max = new int[]{Integer.MIN_VALUE};
+            helperII(root, max);
+            return max[0];
+        }
+
+        private int helperII(TreeNode root, int[] max) {
+            if (root == null) return 0;
+            int left = helperII(root.left, max);
+            int right = helperII(root.right, max);
+            left = left < 0 ? 0 : left;
+            right = right < 0 ? 0 : right;
+            max[0] = Math.max(root.value + left + right, max[0]);
+            return root.value + Math.max(left, right);
+        }
+    }
+
+    public static class PathSumTarget {
+        public boolean exist(TreeNode root, int sum) {
+            if (root == null) return false;
+            List<TreeNode> path = new ArrayList<>();
+            return helper(root, path, sum);
+        }
+
+        private boolean helper(TreeNode root, List<TreeNode> path, int sum) {
+            path.add(root);
+            int temp = 0;
+            for (int i = path.size() - 1; i >= 0; i--) {
+                temp += path.get(i).value;
+                if (temp == sum) {
+                    return true;
+                }
+            }
+            if (root.left != null && helper(root.left, path, sum)) {
+                return true;
+            }
+            if (root.right != null && helper(root.right, path, sum)) {
+                return true;
+            }
+            //clean up when return to the previous level
+            path.remove(path.size() - 1);
+            return false;
+        }
+
+        public boolean existII(TreeNode root, int sum) {
+            if (root == null) return false;
+            Set<Integer> prefixSum = new HashSet<>();
+            prefixSum.add(0);
+            return helperII(root, prefixSum, 0, sum);
+        }
+
+        private boolean helperII(TreeNode root, Set<Integer> prefixSum, int prevSum, int sum) {
+            prevSum += root.value;
+            if (prefixSum.contains(prevSum - sum)) {
+                return true;
+            }
+            boolean needRemove = prefixSum.add(prevSum);
+            if (root.left != null && helperII(root.left, prefixSum, prevSum, sum)) {
+                return true;
+            }
+            if (root.right != null && helperII(root.right, prefixSum, prevSum, sum)) {
+                return true;
+            }
+            if (needRemove) {
+                prefixSum.remove(prevSum);
+            }
+            return false;
+        }
+    }
+
+    public void printZigZag(TreeNode root) {
+        if (root == null) return;
+        Deque<TreeNode> cur_level = new LinkedList<>();
+        Deque<TreeNode> next_level = new LinkedList<>();
+        cur_level.push(root);
+        boolean left_to_right = true;
+        while (!cur_level.isEmpty()) {
+            TreeNode node = cur_level.pop();
+            System.out.print(node.value + " ");
+            if (left_to_right) {
+                if (node.left != null) {
+                    next_level.push(node.left);
+                }
+                if (node.right != null) {
+                    next_level.push(node.right);
+                }
+            } else {
+                if (node.right != null) {
+                    next_level.push(node.right);
+                }
+                if (node.left != null) {
+                    next_level.push(node.left);
+                }
+            }
+            if (cur_level.isEmpty()) {
+                System.out.println("");
+                left_to_right = !left_to_right;
+                Deque<TreeNode> tmp;
+                tmp = cur_level;
+                cur_level = next_level;
+                next_level = tmp;
+            }
+        }
+    }
+
+    public void printLevelOrder(TreeNode root) {
+        // Base Case
+        if(root == null) return;
+        // Create an empty queue for level order tarversal
+        Queue<TreeNode> q =new LinkedList<>();
+        // Enqueue Root and initialize height
+        q.add(root);
+        while(true) {
+            // nodeCount (queue size) indicates number of node at current level.
+            int nodeCount = q.size();
+            if(nodeCount == 0) break;
+            // Dequeue all nodes of current level and Enqueue all nodes of next level
+            while(nodeCount > 0) {
+                TreeNode node = q.peek();
+                System.out.print(node.value + " ");
+                q.remove();
+                if(node.left != null)
+                    q.add(node.left);
+                if(node.right != null)
+                    q.add(node.right);
+                nodeCount--;
+            }
+            System.out.println();
+        }
+    }
 }

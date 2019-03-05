@@ -1,16 +1,14 @@
+import CtCILibrary.TreeNode;
+import Tree.MyBinaryTreeMethods;
+
 import java.util.*;
 
 class PlayGround {
-    public void test() {
+      public static void main(String[] args) {
+            TreeNode root = TreeNode.createMinimalBST(new int[]{1,2,-3,22,21,224,24,-2,424,-234,-23,-424,5,6,-7,8});
+            root.print();
 
-
-        TreeMap<String, Integer> map = new TreeMap<String, Integer>(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return 0;
-            }
-        });
-        map.put("a", 1);
-        map.remove("a");
-    }
+            MyBinaryTreeMethods my = new MyBinaryTreeMethods();
+            my.printLevelOrder(root);
+      }
 }
