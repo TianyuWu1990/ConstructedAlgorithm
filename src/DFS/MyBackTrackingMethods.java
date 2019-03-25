@@ -1,5 +1,7 @@
 package DFS;
 
+import CtCILibrary.TreeNode;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -175,4 +177,66 @@ public class MyBackTrackingMethods {
             if(s.charAt(low++) != s.charAt(high--)) return false;
         return true;
     }
+
+    public ArrayList<TreeNode> generateTrees(int n) {
+        if (n == 0) {
+            return new ArrayList<TreeNode>();
+        }
+
+        // generate all possible root
+        // n is 1-based
+        return helper(1,n);
+    }
+
+    private ArrayList<TreeNode> helper(int start, int end) {
+        // the list contains all possible roots
+        ArrayList<TreeNode> list = new ArrayList<>();
+        if (start > end) {
+            // add null when theres no node available
+            list.add(null);
+            return list;
+        }
+
+        ArrayList<TreeNode> l_list, r_list;
+        // bottom-up recursion
+        for (int i = start; i <= end; i++) {
+            // left contains a list of nodes that are left subtree nodes to the current
+            l_list = helper(start, i - 1);
+            // right contains a list of nodes that are right subtree nodes to the current
+            r_list = helper(i + 1, end);
+            // iterate through left subtree and right subtree to connect them to the root node
+            for (TreeNode l_node : l_list) {
+                for (TreeNode r_node : r_list) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = l_node;
+                    root.right = r_node;
+                    // list is a list of roots whos subtrees are already connected
+                    list.add(root);
+                }
+            }
+        }
+        return list;
+    }
+
+
+    public List<String> restoreIpAddresses(String s) {
+        List<String> ans = new ArrayList<>();
+        backtrack(s, ans, 0, "", 0);
+        return ans;
+    }
+
+    private void backtrack(String s, List<String> ans, int idx, String back, int count) {
+        if (count == 4 && idx == s.length()) {
+            ans.add(back);
+        }
+        for (int i = 1; i < 4; i++) {
+            if (count > 4 || idx + i > s.length()) break;
+            String seg = s.substring(idx, idx + i);
+            if (seg.charAt(0) == '0' && seg.length() > 1 || i == 3 && Integer.valueOf(seg) > 255) continue;
+            // avoid restore the back after backtracking
+            backtrack(s, ans, idx + i, back + seg + (count == 3 ? "" : "."), count + 1);
+        }
+    }
+
+
 }
