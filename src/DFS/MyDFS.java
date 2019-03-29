@@ -102,7 +102,51 @@ public class MyDFS {
         }
         list.remove(0);
     }
-}
+
+
+    /**
+     * Surrounded regions shouldn’t be on the border, which means that any 'O' on the border of the board are not flipped to 'X'. Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'. Two cells are connected if they are adjacent cells connected horizontally or vertically.
+     * @param board
+     */
+    public void solve(char[][] board) {
+        if(board.length==0) return;
+        int rows = board.length;
+        int cols = board[0].length;
+        //dfs from 1st and last rows
+        for(int j=0; j<cols; j++) {
+            dfs(board, 0, j);
+            dfs(board, rows-1, j);
+        }
+        //dfs from 1st and last cols
+        for(int i=0; i<rows; i++) {
+            dfs(board, i, 0);
+            dfs(board, i, cols-1);
+        }
+
+        //postprocessing, flip Os that are not connected with borders
+        for(int i=0; i<rows; i++) {
+            for(int j=0; j<cols; j++) {
+                if(board[i][j]!='#')
+                    board[i][j] = 'X';
+                else
+                    board[i][j] = 'O';
+            }
+        }
+    }
+
+    //mark all Os connected with border with #
+    public void dfs(char[][] board, int i, int j) {
+        int rows = board.length;
+        int cols = board[0].length;
+        if(i<0||i>rows-1||j<0||j>cols-1||board[i][j]!='O') return;
+        board[i][j] = '#';
+
+        int[] dx = {0, 0, 1, -1};
+        int[] dy = {1, -1, 0, 0};
+        for(int k=0; k<dx.length; k++) {
+            dfs(board, i+dx[k], j+dy[k]);
+        }
+    }
 
 
 

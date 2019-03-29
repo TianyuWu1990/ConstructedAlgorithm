@@ -19,6 +19,10 @@ class PlayGround {
 //        System.out.println(new_node.next.next.value);
 //
         System.out.println(test());
+        int[] array = new int[]{1,2,3};
+        List<Integer> list = new ArrayList<>(Arrays.asList(1,2,3));
+        Set<Integer> set = new HashSet<>(new ArrayList<>(Arrays.asList(1,2,3)));
+
     }
 
     private static int test() {
