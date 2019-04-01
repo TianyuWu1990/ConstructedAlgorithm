@@ -22,6 +22,7 @@ class PlayGround {
         int[] array = new int[]{1,2,3};
         List<Integer> list = new ArrayList<>(Arrays.asList(1,2,3));
         Set<Integer> set = new HashSet<>(new ArrayList<>(Arrays.asList(1,2,3)));
+        System.out.println(list.add(1));
 
     }
 

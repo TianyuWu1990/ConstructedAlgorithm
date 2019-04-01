@@ -196,7 +196,70 @@ public class MyBFSMethods {
     }
 
 
+    public boolean wordBreak(String s, List<String> wordDict) {
+        // null case
+        if(s == null || wordDict.size() == 0){
+            return false;
+        }
 
+        int maxWordLength = 0;
+        for(String str: wordDict){
+            maxWordLength = str.length() > maxWordLength? str.length() : maxWordLength;
+        }
+
+        //1. state: boolean f[i] = true, wordDict contains s.substring(0, i)
+        boolean[] f = new boolean[s.length() + 1]; // s is non-empty
+        //2. initialize
+        f[0] = true;
+        for(int i=1; i<=s.length(); i++){
+
+            // number of subproblems: i
+            for(int j=0; j<i; j++){
+                //3. state transfer function
+                //the left  segmentation: f[j]
+                //the right segmentation: s.substring(j, i)
+
+                // 3 improvements: (remove redundant operations)
+                // improve 1: if f[j] is false, no need to check the right segment
+                if(!f[j]){
+                    continue;
+                }
+
+                // improve 2: if the length of right segment is more than the maximum length
+                if(i-j > maxWordLength){
+                    continue;
+                }
+
+                if(f[j] && wordDict.contains(s.substring(j, i))){
+                    f[i] = true;
+                    //improve 3:wordDict={"a", "bc", "ab", "c"}
+                    // when "abc"="a" + "bc"; return true, no need to check: "abc"="ab" + "c";
+                    break;
+                }
+            }
+        }
+        // 4. return
+        return f[s.length()];
+        // HashSet<String> set = new HashSet<>(wordDict);
+        // int[] visited = new int[s.length()]; //start point
+        // Queue<Integer> q = new LinkedList<>();
+        // q.add(0);
+        // while (!q.isEmpty()) {
+        //     int start = q.remove();
+        //     if (visited[start] == 0) { // not been visited
+        //         for (int end = start; end <= s.length(); end++) {
+        //             if (set.contains(s.substring(start, end))) {
+        //                 q.add(end);
+        //                 if (end == s.length()) {
+        //                     return true;
+        //                 }
+        //             }
+        //         }
+        //         visited[start] = 1;
+        //     }
+        // }
+        // return false;
+    }
 
 
 }

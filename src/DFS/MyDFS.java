@@ -1,5 +1,7 @@
 package DFS;
 
+import java.util.*;
+
 public class MyDFS {
     public boolean isInterleave(String s1, String s2, String s3) {
         char[] c1 = s1.toCharArray(), c2 = s2.toCharArray(), c3 = s3.toCharArray();
@@ -148,6 +150,131 @@ public class MyDFS {
         }
     }
 
+
+
+    public boolean wordBreak(String s, List<String> wordDict) {
+        // null case
+        if(s == null || wordDict.size() == 0){
+            return false;
+        }
+
+        int maxWordLength = 0;
+        for(String str: wordDict){
+            maxWordLength = str.length() > maxWordLength? str.length() : maxWordLength;
+        }
+
+        //1. state: boolean f[i] = true, wordDict contains s.substring(0, i)
+        boolean[] f = new boolean[s.length() + 1]; // s is non-empty
+        //2. initialize
+        f[0] = true;
+        for(int i=1; i<=s.length(); i++){
+
+            // number of subproblems: i
+            for(int j=0; j<i; j++){
+                //3. state transfer function
+                //the left  segmentation: f[j]
+                //the right segmentation: s.substring(j, i)
+
+                // 3 improvements: (remove redundant operations)
+                // improve 1: if f[j] is false, no need to check the right segment
+                if(!f[j]){
+                    continue;
+                }
+
+                // improve 2: if the length of right segment is more than the maximum length
+                if(i-j > maxWordLength){
+                    continue;
+                }
+
+                if(f[j] && wordDict.contains(s.substring(j, i))){
+                    f[i] = true;
+                    //improve 3:wordDict={"a", "bc", "ab", "c"}
+                    // when "abc"="a" + "bc"; return true, no need to check: "abc"="ab" + "c";
+                    break;
+                }
+            }
+        }
+        // 4. return
+        return f[s.length()];
+        // HashSet<String> set = new HashSet<>(wordDict);
+        // int[] visited = new int[s.length()]; //start point
+        // Queue<Integer> q = new LinkedList<>();
+        // q.add(0);
+        // while (!q.isEmpty()) {
+        //     int start = q.remove();
+        //     if (visited[start] == 0) { // not been visited
+        //         for (int end = start; end <= s.length(); end++) {
+        //             if (set.contains(s.substring(start, end))) {
+        //                 q.add(end);
+        //                 if (end == s.length()) {
+        //                     return true;
+        //                 }
+        //             }
+        //         }
+        //         visited[start] = 1;
+        //     }
+        // }
+        // return false;
+    }
+
+
+    // use word in dict check s
+    public List<String> wordBreakII(String s, List<String> wordDict) {
+        HashMap<String, List<String>> map = new HashMap<>();
+        return helper(s, wordDict, map);
+    }
+
+    private List<String> helper(String s, List<String> wordDict, HashMap<String, List<String>> map) {
+
+        if (map.containsKey(s)) return map.get(s);
+
+        List<String> res = new ArrayList<>();
+
+        if (s.length() == 0) {
+            res.add("");
+            return res;
+        }
+
+        for (String word: wordDict) {
+            if (s.startsWith(word)) {
+                List<String> subList = helper(s.substring(word.length()), wordDict, map);
+                for (String sub: subList) {
+                    res.add(word + (sub.length() == 0 ? "" : " ") + sub);
+                }
+            }
+        }
+
+        map.put(s, res);
+        return res;
+    }
+//     // use substring check word in dict
+//     public List<String> wordBreakII(String s, List<String> wordDict) {
+//         HashSet<String> set = new HashSet<>(wordDict);
+//         return word_Break(s, set, 0);
+//     }
+//     HashMap<Integer, List<String>> map = new HashMap<>();
+
+//     public List<String> word_Break(String s, Set<String> wordDict, int start) {
+//         if (map.containsKey(start)) {
+//             return map.get(start);
+//         }
+//         LinkedList<String> res = new LinkedList<>();
+//         if (start == s.length()) {
+//             res.add("");
+//             return res;
+//         }
+//         for (int end = start; end <= s.length(); end++) {
+//             if (wordDict.contains(s.substring(start, end))) {
+//                 List<String> list = word_Break(s, wordDict, end);
+//                 for (String l : list) {
+//                     res.add(s.substring(start, end) + (l.equals("") ? "" : " ") + l);
+//                 }
+//             }
+//         }
+//         map.put(start, res);
+//         System.out.println(res);
+//         return res;
+//     }
 
 
 }
