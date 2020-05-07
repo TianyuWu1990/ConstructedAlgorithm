@@ -17,13 +17,22 @@ class PlayGround {
 //        ListNode new_node  = n1;
 //        n1.next.next = n3;
 //        System.out.println(new_node.next.next.value);
+////
+//        System.out.println(test());
+//        int[] array = new int[]{1,2,3};
+//        List<Integer> list = new ArrayList<>(Arrays.asList(1,2,3));
+//        Set<Integer> set = new HashSet<>(new ArrayList<>(Arrays.asList(1,2,3)));
+//        System.out.println(list.add(1));
+//        String s = "a b c   d";
+//        String[] arr = s.split(" ");
 //
-        System.out.println(test());
-        int[] array = new int[]{1,2,3};
-        List<Integer> list = new ArrayList<>(Arrays.asList(1,2,3));
-        Set<Integer> set = new HashSet<>(new ArrayList<>(Arrays.asList(1,2,3)));
-        System.out.println(list.add(1));
+//        for (String a : arr) {
+//            System.out.println(a.equals(""));
+//        }
+//
 
+        int [][][] a = new int[1][1][1];
+        System.out.println(a);
     }
 
     private static int test() {
