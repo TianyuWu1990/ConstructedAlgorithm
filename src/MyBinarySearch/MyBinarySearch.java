@@ -45,7 +45,7 @@ class MyBinarySearch {
      * Search in sorted matrix, each row of the matrix is sorted in ascending order,
      * and the first element of the row is equals to or larger than the last element
      * of the previous row.
-     *
+     * <p>
      * Return the position if the target is found, otherwise return {-1, -1}.
      */
     public class SearchInSortedMatrixI {
@@ -53,7 +53,7 @@ class MyBinarySearch {
         // return {-1, -1} if not found.
         // Method 1: find row first then find col.
         public int[] searchI(int[][] matrix, int target) {
-            int[] result = new int[] { -1, -1 };
+            int[] result = new int[]{-1, -1};
             if (matrix.length == 0 || matrix[0].length == 0) {
                 return result;
             }
@@ -103,7 +103,7 @@ class MyBinarySearch {
         // Method 2: convert the 2D array to 1D array and do binary search.
         public int[] search(int[][] matrix, int target) {
             if (matrix.length == 0 || matrix[0].length == 0) {
-                return new int[] { -1, -1 };
+                return new int[]{-1, -1};
             }
             int rows = matrix.length;
             int cols = matrix[0].length;
@@ -116,14 +116,14 @@ class MyBinarySearch {
                 int row = mid / cols;
                 int col = mid % cols;
                 if (matrix[row][col] == target) {
-                    return new int[] { row, col };
+                    return new int[]{row, col};
                 } else if (matrix[row][col] < target) {
                     left = mid + 1;
                 } else {
                     right = mid - 1;
                 }
             }
-            return new int[] { -1, -1 };
+            return new int[]{-1, -1};
         }
     }
 
@@ -157,15 +157,15 @@ class MyBinarySearch {
     int FirstTargetBinarySearch(int[] a, int left, int right, int target) {
         int mid;
         //if left ​neighbors​ right → terminate
-        while (left < right - 1){
+        while (left < right - 1) {
             mid = left + (right - left) / 2;
             if (a[mid] == target) {
-                 //  right = mid - 1 (wrong)
+                //  right = mid - 1 (wrong)
                 right = mid; //​left​ = mid; if find last occurrence of target
                 // do not stop here, keep checking to left
             } else if (a[mid] < target) {
                 // left = mid + 1 (correct)
-                left= mid;
+                left = mid;
             } else {
                 // right = mid - 1 (correct)
                 right = mid;
@@ -174,7 +174,7 @@ class MyBinarySearch {
         // Post processing
         // check MergeSort2[left] against target first
         if (a[left] == target)
-        return left;
+            return left;
         // then check MergeSort2[right] against target
         if (a[right] == target)
             return right;
@@ -260,8 +260,8 @@ class MyBinarySearch {
      * Binary search implementation on an dictionary with unknown size.
      * Assumption:
      * 1). The dictionary is an unknown sized sorted array, it only provides
-     *     get(int index) functionality, if the index asked for is out of right
-     *     bound, it will return null.
+     * get(int index) functionality, if the index asked for is out of right
+     * bound, it will return null.
      * 2). The elements in the dictionary are all Integers.
      */
     public class UnknownSizeBinarySearch {
@@ -296,5 +296,63 @@ class MyBinarySearch {
             }
             return -1;
         }
+    }
+
+    /**
+     * Find first occurrence of T in ascending sorted array A, return -1 if there's no index.
+     * Assumptions: Duplicates
+     *
+     * @param array  int[]
+     * @param target int
+     * @return int, index
+     */
+    public int firstOccur(int[] array, int target) {
+        int l = 0, r = array.length - 1;
+
+//        while (l < r - 1) {
+//            int mid = l + (r - l) / 2;
+//            if (array[mid] >= target) {
+//                r = mid;
+//            } else {
+//                l = mid + 1;
+//            }
+//        }
+
+        int res = -1;
+        while (l <= r) {
+            int mid = l + (r-l)/2;
+            if (array[mid] == target) res = mid;
+            if (array[mid] >= target) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+
+        return res;
+
+//        if (array[l] == target) return l;
+//        if (array[r] == target) return r;
+//        return -1;
+    }
+
+}
+
+class test{
+
+    public static void main(String[] args) {
+        int[] testArray = new int[]{1,1,2,2,3,4,5};
+        MyBinarySearch mysearch = new MyBinarySearch();
+
+        int target0 = 0;
+        int firstOccur0 = -1;
+        int res0 = mysearch.firstOccur(testArray, target0);
+
+        int target1 = 2;
+        int fistOccur1 = 2;
+        int res1 = mysearch.firstOccur(testArray, target1);
+
+        assert res0 == firstOccur0;
+        assert res1 == fistOccur1;
     }
 }
